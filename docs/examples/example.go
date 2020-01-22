@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/freundallein/token-session/sessions"
 )
@@ -11,7 +12,7 @@ func main() {
 		"username": "Test",
 		"role":     "user",
 	}
-	sessions.Init("SECRETKEY")
+	sessions.Init("SECRETKEY", 30*time.Second)
 	session := sessions.Create(data)
 	fmt.Println(session)
 	fmt.Println(session.Data())

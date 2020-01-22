@@ -10,18 +10,19 @@ import (
 )
 
 const (
-	expirationTime = 30 * time.Second
-	timeFormat     = "02.01.2006 15:04:05"
+	timeFormat = "02.01.2006 15:04:05"
 )
 
 var (
+	expirationTime     = 30 * time.Second
 	ErrSessionExpired  = errors.New("session expired")
 	ErrInvalidToken    = errors.New("invalid token")
 	ErrEncryptionError = errors.New("error during encryption")
 )
 
-func Init(key string) {
+func Init(key string, timeout time.Duration) {
 	crypt.SecretKey = key
+	expirationTime = timeout
 }
 
 func Create(data map[string]string) *Session {
