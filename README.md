@@ -23,16 +23,19 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/freundallein/token-session/sessions"
 )
 
 func main() {
+	expiration := 60 * time.Second
+	secretKey := "my-secret-key"
+	sessions.Init(secretKey, expiration)
 	data := map[string]string{
 		"username": "Test",
 		"role":     "user",
 	}
-	sessions.Init("SECRETKEY")
 	session := sessions.Create(data)
 	fmt.Println(session)
 	fmt.Println(session.Data())
@@ -47,5 +50,4 @@ func main() {
 	}
 	fmt.Println(session)
 }
-
 ```

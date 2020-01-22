@@ -8,11 +8,13 @@ import (
 )
 
 func main() {
+	expiration := 60 * time.Second
+	secretKey := "my-secret-key"
+	sessions.Init(secretKey, expiration)
 	data := map[string]string{
 		"username": "Test",
 		"role":     "user",
 	}
-	sessions.Init("SECRETKEY", 30*time.Second)
 	session := sessions.Create(data)
 	fmt.Println(session)
 	fmt.Println(session.Data())
