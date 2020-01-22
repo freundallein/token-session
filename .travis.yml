@@ -9,7 +9,15 @@ jobs:
     - stage: test
       name: "Unit tests"
       go: 1.13.x
-      script: make test
+      script: 
+        - make test
+    - stage: coverage
+      name: "Coverage"
+      go: 1.13.x
+      before_install:
+        - go get github.com/mattn/goveralls
+      script: 
+        - $GOPATH/bin/goveralls -service=travis-ci
 
 notifications:
   on_success: never
