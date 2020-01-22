@@ -1,6 +1,7 @@
 # token-session
 [![Build Status](https://travis-ci.org/freundallein/token-session.svg?branch=master)](https://travis-ci.org/freundallein/token-session)
 [![Coverage Status](https://coveralls.io/repos/github/freundallein/token-session/badge.svg?branch=master)](https://coveralls.io/github/freundallein/token-session?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/freundallein/token-session)](https://goreportcard.com/report/github.com/freundallein/token-session)
 
 Client-side session lib.
 
