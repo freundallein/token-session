@@ -20,20 +20,20 @@ var (
 	ErrEncryptionError = errors.New("error during encryption")
 )
 
-// Init library, set secretKey for cypher hash and expirationTime
+// Init - initialise library, set secretKey for cypher hash and expirationTime
 func Init(key string, timeout time.Duration) {
 	crypt.SecretKey = key
 	expirationTime = timeout
 }
 
-// Create session from map
+// Create - create session from map
 func Create(data map[string]string) *Session {
 	lastSeen := time.Now().UTC()
 	data["lastSeen"] = lastSeen.Format(timeFormat)
 	return &Session{data: data, lastSeen: lastSeen}
 }
 
-// Extract session from token
+// Get - extract session from token
 func Get(token string) (*Session, error) {
 	session, err := fromToken(token)
 	if err != nil {
@@ -45,7 +45,7 @@ func Get(token string) (*Session, error) {
 	return session, nil
 }
 
-// Represents session
+// Session - basic session struct
 type Session struct {
 	data     map[string]string
 	lastSeen time.Time
