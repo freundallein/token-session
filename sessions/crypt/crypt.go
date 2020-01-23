@@ -11,6 +11,7 @@ import (
 
 var SecretKey string
 
+// AES Encryption with hashing based on secret key
 func Encrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher([]byte(createHash(SecretKey)))
 	if err != nil {
@@ -28,6 +29,7 @@ func Encrypt(data []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
+// AES Decryption
 func Decrypt(data []byte) ([]byte, error) {
 	key := []byte(createHash(SecretKey))
 	block, err := aes.NewCipher(key)

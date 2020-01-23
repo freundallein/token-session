@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Bytes serialize map[string]string to byte sequence
 func Bytes(data map[string]string) []byte {
 	buffer := new(bytes.Buffer)
 	for key, value := range data {
@@ -14,6 +15,7 @@ func Bytes(data map[string]string) []byte {
 	return buffer.Bytes()
 }
 
+// Desrialize bytes sequence to map[string]string
 func ExtractBytes(sequence []byte) map[string]string {
 	extracted := map[string]string{}
 	pairs := strings.Split(string(sequence), "&")

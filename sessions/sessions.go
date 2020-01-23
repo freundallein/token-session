@@ -20,19 +20,22 @@ var (
 	ErrEncryptionError = errors.New("error during encryption")
 )
 
+// Init library, set secretKey for cypher hash and expirationTime
 func Init(key string, timeout time.Duration) {
 	crypt.SecretKey = key
 	expirationTime = timeout
 }
 
+// Create session from map
 func Create(data map[string]string) *Session {
 	lastSeen := time.Now().UTC()
 	data["lastSeen"] = lastSeen.Format(timeFormat)
 	return &Session{data: data, lastSeen: lastSeen}
 }
 
+// Extract session from token
 func Get(token string) (*Session, error) {
-	session, err := FromToken(token)
+	session, err := fromToken(token)
 	if err != nil {
 		return nil, ErrInvalidToken
 	}
@@ -42,12 +45,13 @@ func Get(token string) (*Session, error) {
 	return session, nil
 }
 
+// Represents session
 type Session struct {
 	data     map[string]string
 	lastSeen time.Time
 }
 
-func FromToken(token string) (*Session, error) {
+func fromToken(token string) (*Session, error) {
 	data, err := decrypt(token)
 	if err != nil {
 		return nil, err
@@ -63,14 +67,17 @@ func FromToken(token string) (*Session, error) {
 	return &Session{data: data, lastSeen: lastSeen}, nil
 }
 
+// Data getter
 func (s *Session) Data() map[string]string {
 	return s.data
 }
 
+// String representation
 func (s *Session) String() string {
 	return fmt.Sprintf("%v last: %v", s.data, s.lastSeen.Format(timeFormat))
 }
 
+// Token - generate encrypted token with data
 func (s *Session) Token() (string, error) {
 	s.data["lastSeen"] = time.Now().UTC().Format(timeFormat)
 	encData, err := encrypt(s.data)
