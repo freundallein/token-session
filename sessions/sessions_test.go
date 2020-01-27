@@ -8,14 +8,13 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	expectedSecretKey := "test"
-	expectedTimeout := 1 * time.Second
-	Init(expectedSecretKey, expectedTimeout)
-	if crypt.SecretKey != expectedSecretKey {
-		t.Error("Expected", expectedSecretKey, "got", crypt.SecretKey)
+	opts := &Options{Secret: "test", Expiration: 1 * time.Second}
+	Init(opts)
+	if crypt.SecretKey != opts.Secret {
+		t.Error("Expected", opts.Secret, "got", crypt.SecretKey)
 	}
-	if expirationTime != expectedTimeout {
-		t.Error("Expected", expectedTimeout, "got", expirationTime)
+	if expirationTime != opts.Expiration {
+		t.Error("Expected", opts.Expiration, "got", expirationTime)
 	}
 }
 

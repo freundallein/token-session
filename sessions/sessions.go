@@ -20,10 +20,15 @@ var (
 	ErrEncryptionError = errors.New("error during encryption")
 )
 
+type Options struct {
+	Secret     string
+	Expiration time.Duration
+}
+
 // Init - initialise library, set secretKey for cypher hash and expirationTime
-func Init(key string, timeout time.Duration) {
-	crypt.SecretKey = key
-	expirationTime = timeout
+func Init(opts *Options) {
+	crypt.SecretKey = opts.Secret
+	expirationTime = opts.Expiration
 }
 
 // Create - create session from map

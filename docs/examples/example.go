@@ -8,9 +8,11 @@ import (
 )
 
 func main() {
-	expiration := 60 * time.Second
-	secretKey := "my-secret-key"
-	sessions.Init(secretKey, expiration)
+	opts := &sessions.Options{
+		Secret:"my-secret-key", 
+		Expiration:  60 * time.Second,
+	}
+	sessions.Init(opts)
 	data := map[string]string{
 		"username": "Test",
 		"role":     "user",
